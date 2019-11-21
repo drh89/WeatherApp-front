@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useState} from 'react';
 import facade from "./apiFacade";
-import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Welcome from "./components/Welcome";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
@@ -11,7 +11,12 @@ function App(props) {
   
   const [loggedIn, setLoggedIn] = useState( localStorage.getItem("jwtToken") !== null ? true : false );
   const [message, setMessage] = useState("");
+  const [weather, setWeather] = useState([]);
 
+  const getWeatherByCity = cityname => {
+    facade.getWeatherByCity(cityname).then(list => setWeather(list));
+  }
+    
 
   const login = (username, password) => {
     facade.login(username, password).then(res => setLoggedIn(true))
@@ -45,7 +50,7 @@ function App(props) {
     <div className="App">
       <Navigation loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Switch>
-        <Route path ="/" component={Welcome} exact ></Route>
+        <Route path ="/"  exact ><Welcome weather={weather} setWeather={setWeather} getWeatherByCity={getWeatherByCity}/></Route>
         <Route path ="/login"> <Login login={login} loggedIn={loggedIn} message={message}/> </Route>
         <Route path ="/logout"> <Logout logout={logout}/></Route>
       

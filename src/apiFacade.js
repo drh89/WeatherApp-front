@@ -6,12 +6,14 @@ const url = "http://localhost:8080/CA3/api";
 
 
 function apiFacade(){
-    function handleHttpErrors(res) {
-        if (!res.ok) {
-          return Promise.reject({ status: res.status, fullError: res.json() });
-        }
-        return res.json();
-      };
+
+    const getWeatherByCity = cityname => {
+      const opt = makeOptions("GET",false);
+      return fetch(url + "/weather/fivedays/" + cityname, opt).then(handleHttpErrors);
+
+    }
+    
+    
 
     const setToken = token => {
         localStorage.setItem("jwtToken", token);
@@ -73,7 +75,7 @@ function apiFacade(){
 
 
       return {
-
+        getWeatherByCity,
         makeOptions,
         setToken,
         getToken,
