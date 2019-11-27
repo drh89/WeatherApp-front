@@ -3,7 +3,7 @@ import React, {useState} from "react";
 const Welcome = (props) => {
 
     const weather = props.weather;
-    
+    const setWeather = props.setWeather;
     const getWeatherByCity = props.getWeatherByCity;
     const city = {cityname:"copenhagen"};
     const [cityname, setCityname] = useState(city);
@@ -22,7 +22,7 @@ const Welcome = (props) => {
     }
 
     
-
+    
     return (
         <div>
            <h3><p>Search Weather</p></h3>
@@ -33,9 +33,9 @@ const Welcome = (props) => {
                
             
                 {weather.map(day => (
-                    <table>
+                    <table key={day.id}>
                     <thead>
-                    <tr key={day.id}><th>Test</th><th><img id="img" src={imageSource + day.weather_state_abbr + ".ico"}></img></th></tr>
+                    <tr ><th>Test</th><th><img id="img" src={imageSource + day.weather_state_abbr + ".ico"}></img></th></tr>
                 </thead>
                 <tbody>
             <tr><td>Date</td><td>{day.applicable_date}</td></tr> 

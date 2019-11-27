@@ -7,6 +7,11 @@ const url = "http://localhost:8080/CA3/api";
 
 function apiFacade(){
 
+    const getWeatherByLongLat = latLong => {
+      const opt = makeOptions("GET",false);
+      return fetch(url + "/weather/latlong/" + latLong, opt).then(handleHttpErrors);
+    }
+
     const getWeatherByCity = cityname => {
       const opt = makeOptions("GET",false);
       return fetch(url + "/weather/fivedays/" + cityname, opt).then(handleHttpErrors);
@@ -75,6 +80,7 @@ function apiFacade(){
 
 
       return {
+        getWeatherByLongLat,
         getWeatherByCity,
         makeOptions,
         setToken,

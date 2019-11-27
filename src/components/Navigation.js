@@ -16,6 +16,7 @@ const Navigation = ({loggedIn, setLoggedIn}) => {
             :
             <li><NavLink to= "/logout">Logout</NavLink></li>
             }
+            <li><NavLink to="/geolocation">Your Location</NavLink></li>
         </ul>
 
     );
